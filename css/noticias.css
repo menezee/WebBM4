@@ -1,6 +1,6 @@
 #noticias{
 	width: 1280px;
-	height: 630px;
+	height: 1000px;
 	margin: auto;
 	display: flex;
 	flex-wrap:wrap;
@@ -73,4 +73,9 @@
    margin-top: 10px;
    margin-left: 20%;
    margin-right: 20%;    
+}
+
+.section-gap2{
+	padding: 120px 0;
+	padding-top: 0px;
 }
