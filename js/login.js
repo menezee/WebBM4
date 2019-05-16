@@ -33,10 +33,22 @@ function ingreso() {
       // Handle Errors here.
       var errorCode = error.code;
       var errorMessage = error.message;
-      console.error(error);
+      if (errorCode === 'auth/wrong-password') {
+        alert('Wrong password.');
+      } else {
+        alert(errorMessage);
+      }
+      console.log(error);
       // ...
     });
 }
+
+firebase.auth().signOut().then(function(user) {
+  // Sign-out successful.
+}).catch(function(error) {
+  // An error happened.
+});
+
 
 firebase
   .auth()
@@ -51,10 +63,12 @@ firebase
       var uid = user.uid;
       var providerData = user.providerData;
       console.log('user', user);
+      $("#myModal").modal('hide');
+      $(".navbar-nav > li:last").html( "<a href='#'> " + email + "</a>" );
       // ...
-    } else {
-      console.log('algo mudou', user);
+    } else {      
       // User is signed out.
+      console.log('algo mudou', user);
       // ...
     }
   });
