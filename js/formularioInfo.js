@@ -1,12 +1,7 @@
 $(window, document, undefined).ready(function() {
   $( "#formIngreso" ).submit(function( event ) {
     const formValues = $( this ).serializeArray();
-    const formObject = formValues.reduce((acc, curr) => {
-      return {
-        ...acc,
-        [curr.name.replace(/\s*/g, '')]: curr.value,
-      }
-    }, {});
+    const formObject = transformFormValuesIntoObject(formValues);
 
     event.preventDefault();
 
@@ -28,9 +23,28 @@ $(window, document, undefined).ready(function() {
   });
 });
 
+function transformFormValuesIntoObject(formValues) {
+  const formObject = formValues.reduce((acc, curr) => {
+    return {
+      ...acc,
+      [curr.name.replace(/\s*/g, '')]: curr.value,
+    }
+  }, {});
+
+  return formObject;
+}
+
+// TODO how to add users data
 function writeUserData(name, nacionalidade) {
   firebase.database().ref('users').set({
     username: name,
     nacionalidade,
+  }, function(error) {
+    if (error) {
+      console.log('errir', error);
+    } else {
+      console.log('success')
+    }
   });
 }
+
